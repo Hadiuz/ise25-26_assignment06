@@ -18,7 +18,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 @Mapper(componentModel = "spring")
 @ConditionalOnMissingBean // prevent IntelliJ warning about duplicate beans
 public interface UserEntityMapper {
+    @Mapping(source = "loginName", target = "login")
+    @Mapping(source = "emailAddress", target = "email")
+    @Mapping(source = "createdAt", target = "creationTimestamp")
+    @Mapping(source = "updatedAt", target = "updateTimestamp")
     User fromEntity(UserEntity source);
+
+    @Mapping(source = "login", target = "loginName")
+    @Mapping(source = "email", target = "emailAddress")
+    @Mapping(source = "creationTimestamp", target = "createdAt")
+    @Mapping(source = "updateTimestamp", target = "updatedAt")
     UserEntity toEntity(User source);
 
     /**
@@ -32,5 +41,9 @@ public interface UserEntityMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(source = "login", target = "loginName")
+    @Mapping(source = "email", target = "emailAddress")
+    @Mapping(source = "firstName", target = "firstName")
+    @Mapping(source = "lastName", target = "lastName")
     void updateEntity(User source, @MappingTarget UserEntity target);
 }
